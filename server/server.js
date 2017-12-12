@@ -17,3 +17,5 @@ app.get('*', (req, res) => {
 app.listen(3000, () => {
 	console.log('server runs');
 });
+
+//runs with node server/server.js
