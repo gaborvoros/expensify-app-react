@@ -12,17 +12,6 @@ import 'react-dates/lib/css/_datepicker.css'
 
 const store = configStore();
 
-const expense1 = store.dispatch(addExpense({description: 'water bill', amount: 100, createdAt: 100}));
-const expense2 = store.dispatch(addExpense({description: 'gas bill', amount: 35, createdAt: 200}));
-const expense3 = store.dispatch(addExpense({description: 'rent', amount: 10052, createdAt: 1000}));
-
-
-const state = store.getState();
-const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-
-
-
-
 // PRovider takes over the higher component function
 //provider allows to provide the store to all other components
 //all components have acces to store
