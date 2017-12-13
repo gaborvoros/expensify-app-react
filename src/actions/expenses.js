@@ -17,7 +17,7 @@ export const startAddExpense = (expenseData = {}) => {
 
 		const expense = {description, note, amount, createdAt}
 
-		database.ref('expenses').push(expense).then((ref) => {
+		return database.ref('expenses').push(expense).then((ref) => {
 			//dispatch needs to be called or the redux store is not changed
 			//ref.key has the newly generated key from firebase
 			dispatch(addExpense({
