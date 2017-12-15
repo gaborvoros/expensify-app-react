@@ -5,7 +5,7 @@ import AppRouter, {history} from './routers/AppRouter';
 import configStore from './store/configureStore';
 import getVisibleExpenses from './selectors/expenses';
 import {startSetExpense} from './actions/expenses';
-import {setTextFilter, sortByAmount, sortByDate, setStartDate, setEndDate} from './actions/filters';
+import {login, logout} from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css'
@@ -33,6 +33,7 @@ ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
 	if(user){
+		store.dispatch(login(user.uid))
 		store.dispatch(startSetExpense()).then(() => {
 			renderApp()
 			if(history.location.pathname === '/'){
@@ -40,6 +41,7 @@ firebase.auth().onAuthStateChanged((user) => {
 			}
 		})
 	}else{
+		store.dispatch(logout())
 		renderApp()
 		history.push('/')
 	}
