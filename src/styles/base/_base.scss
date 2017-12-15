@@ -1,3 +1,7 @@
+*{
+	box-sizing: border-box;
+}
+
 html {
 	//defult size to make it a 10px base
 	font-size: 62.5%;
@@ -6,7 +10,8 @@ html {
 body {
 	font-family: Helvetica, Arial, sans-serif;
 	font-size: $m-size;
-	background-color: white;
+	color: $dark-grey;
+	line-height: 1.6;
 }
 
 h1 {
