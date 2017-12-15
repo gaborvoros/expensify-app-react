@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import AppRouter from './routers/AppRouter';
+import AppRouter, {history} from './routers/AppRouter';
 import configStore from './store/configureStore';
 import getVisibleExpenses from './selectors/expenses';
 import {startSetExpense} from './actions/expenses';
@@ -12,6 +12,13 @@ import 'react-dates/lib/css/_datepicker.css'
 import {firebase} from './firebase/firebase'
 
 const store = configStore();
+let hasRendered = false;
+const renderApp = () => {
+	if(!hasRendered){
+		ReactDOM.render(jsx, document.getElementById('app'));
+		hasRendered = true
+	}
+}
 
 // PRovider takes over the higher component function
 //provider allows to provide the store to all other components
@@ -24,15 +31,16 @@ const jsx = (
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
-store.dispatch(startSetExpense()).then(() => {
-	ReactDOM.render(jsx, document.getElementById('app'));
-})
-
-
 firebase.auth().onAuthStateChanged((user) => {
 	if(user){
-		console.log('logged-in')
+		store.dispatch(startSetExpense()).then(() => {
+			renderApp()
+			if(history.location.pathname === '/'){
+				history.push('/dashboard')
+			}
+		})
 	}else{
-		console.log('logged-out')
+		renderApp()
+		history.push('/')
 	}
 })
